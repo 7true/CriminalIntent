@@ -22,7 +22,7 @@ public class Crime {
         return mTIitle;
     }
 
-    public void setTIitle(String TIitle) {
-        mTIitle = TIitle;
+    public void setTitle(String Title) {
+        mTIitle = Title;
     }
 }
