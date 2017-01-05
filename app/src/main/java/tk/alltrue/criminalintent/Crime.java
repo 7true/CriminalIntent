@@ -1,5 +1,9 @@
 package tk.alltrue.criminalintent;
 
+
+import android.text.format.DateFormat;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -9,9 +13,19 @@ import java.util.UUID;
 
 public class Crime {
     private UUID mId;
-    private String mTIitle;
+    private String mTitle;
     private Date mDate;
     private boolean mSolved;
+    private String strCurrentDate;
+
+
+    public void setStrCurrentDate(String strCurrentDate) {
+        this.strCurrentDate = strCurrentDate;
+    }
+
+    public String getStrCurrentDate() {
+        return strCurrentDate;
+    }
 
     public boolean isSolved() {
         return mSolved;
@@ -32,17 +46,20 @@ public class Crime {
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, yyyy");
+        strCurrentDate = df.format(mDate);
+
     }
 
     public UUID getId() {
         return mId;
     }
 
-    public String getTIitle() {
-        return mTIitle;
+    public String getTitle() {
+        return mTitle;
     }
 
     public void setTitle(String Title) {
-        mTIitle = Title;
+        mTitle = Title;
     }
 }
