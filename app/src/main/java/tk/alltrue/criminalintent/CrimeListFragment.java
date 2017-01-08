@@ -26,7 +26,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_item_crime, container, false);
+        View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
 
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -49,13 +49,6 @@ public class CrimeListFragment extends Fragment {
         private CheckBox mSolvedCheckBox;
         private Crime mCrime;
 
-        public void bindCrime(Crime crime) {
-            mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
-            mSolvedCheckBox.setChecked(mCrime.isSolved());
-        }
-
         public CrimeHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -65,6 +58,13 @@ public class CrimeListFragment extends Fragment {
                     itemView.findViewById(R.id.list_item_crime_date_text_view);
             mSolvedCheckBox = (CheckBox)
                     itemView.findViewById(R.id.list_item_crime_solved_check_box);
+        }
+
+        public void bindCrime(Crime crime) {
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDate().toString());
+            mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
         @Override
         public void onClick(View v) {
