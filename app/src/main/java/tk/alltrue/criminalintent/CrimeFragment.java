@@ -13,12 +13,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.UUID;
+
 /**
  * Created by ya on 04.12.16.
  */
 
 public class CrimeFragment extends Fragment {
-    private Crime mCrime;
+    //private Crime mCrime;
+    UUID crimeId = (UUID) getActivity().getIntent();
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
