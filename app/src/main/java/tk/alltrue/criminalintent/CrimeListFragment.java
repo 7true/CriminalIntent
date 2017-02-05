@@ -15,6 +15,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by ya on 06.01.17.
@@ -23,7 +24,7 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
-
+    public UUID mClickedId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -41,14 +42,33 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
+    /*
+        private void updateUI() {
+            CrimeLab crimeLab = CrimeLab.get(getActivity());
+            List<Crime> crimes = crimeLab.getCrimes();
+            if (mAdapter == null) {
+                mAdapter = new CrimeAdapter(crimes);
+                mCrimeRecyclerView.setAdapter(mAdapter);
+            } else {
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    */
+
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.notifyDataSetChanged();
+            for (int i = 0; i < crimes.size(); i++) {
+                if (crimes.get(i).getId() == mClickedId) {
+                    mAdapter.notifyItemChanged(i);
+                    break;
+                }
+            }
         }
     }
 
@@ -77,9 +97,11 @@ public class CrimeListFragment extends Fragment {
             mDateTextView.setText(mCrime.getDate().toString());
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
+
         @Override
         public void onClick(View v) {
             //Intent intent = new Intent(getActivity(), CrimeActivity.class);
+            mClickedId = mCrime.getId();
             Intent intent = CrimeActivity.newIntent(getActivity(),
                     mCrime.getId());
             startActivity(intent);
