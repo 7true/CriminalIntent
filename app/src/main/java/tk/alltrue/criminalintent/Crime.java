@@ -46,9 +46,6 @@ public class Crime {
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, yyyy");
-        strCurrentDate = df.format(mDate);
-
     }
 
     public UUID getId() {
