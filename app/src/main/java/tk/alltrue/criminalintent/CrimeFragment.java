@@ -34,6 +34,7 @@ public class CrimeFragment extends Fragment {
 
     private EditText mTitleField;
     private Button mDateButton;
+    private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
 
     public static CrimeFragment newInstance(UUID crimeId) {
@@ -77,9 +78,10 @@ public class CrimeFragment extends Fragment {
         });
 
         mDateButton = (Button)v.findViewById(R.id.crime_date);
+        //mDateButton.setEnabled(false);
+        mTimeButton = (Button) v.findViewById(R.id.crime_time);
 
         updateDate();
-        //mDateButton.setEnabled(false);
 
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +90,18 @@ public class CrimeFragment extends Fragment {
                 //DatePickerFragment dialog = new DatePickerFragment();
                 DatePickerFragment dialog = DatePickerFragment
                        .newInstance(mCrime.getDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
+
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                //DatePickerFragment dialog = new DatePickerFragment();
+                TimePickerFragment dialog = TimePickerFragment
+                        .newInstance(mCrime.getDate());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
@@ -120,8 +134,11 @@ public class CrimeFragment extends Fragment {
     }
 
     private void updateDate() {
-        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, yyyy");
-        strCurrentDate = df.format(mCrime.getDate());
-        mDateButton.setText(strCurrentDate);
+        mDateButton.setText(new SimpleDateFormat("EEEE, MMM dd, yyyy")
+                .format(mCrime.getDate()));
+
     }
+    private void updateTime() {
+        mTimeButton.setText(new SimpleDateFormat("HH:mm")
+                .format(mCrime.getDate()));
 }
