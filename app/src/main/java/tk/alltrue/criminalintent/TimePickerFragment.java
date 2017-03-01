@@ -1,9 +1,11 @@
 package tk.alltrue.criminalintent;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -98,14 +100,15 @@ public class TimePickerFragment extends DialogFragment {
         }
     }
 
-    private void sendResult(int resultCode, Date date) {
+    private void sendResult(Date date) {
         if (getTargetFragment() == null) {
             return;
         }
+
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_DATE, date);
+        intent.putExtra(EXTRA_TIME, date);
 
         getTargetFragment()
-                .onActivityResult(getTargetRequestCode(), resultCode, intent);
+                .onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
     }
 }
