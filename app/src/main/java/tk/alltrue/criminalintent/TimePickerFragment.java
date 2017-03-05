@@ -80,7 +80,7 @@ public class TimePickerFragment extends DialogFragment {
 
             return new AlertDialog.Builder(getActivity())
                     .setView(v)
-//                    .setTitle(R.string.time_picker_title)
+                    .setTitle(R.string.time_picker_title)
                     .setPositiveButton(android.R.string.ok,
                             new DialogInterface.OnClickListener() {
                                 @TargetApi(Build.VERSION_CODES.M)
