@@ -115,13 +115,14 @@ public class CrimeListFragment extends Fragment {
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
+        } else {/*
             for (int i = 0; i < crimes.size(); i++) {
                 if (crimes.get(i).getId() == mClickedId) {
                     mAdapter.notifyItemChanged(i);
                     break;
                 }
-            }
+            }*/
+            mAdapter.notifyDataSetChanged();
         }
     }
 
