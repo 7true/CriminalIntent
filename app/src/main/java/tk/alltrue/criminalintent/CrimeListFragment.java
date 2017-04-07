@@ -87,7 +87,7 @@ public class CrimeListFragment extends Fragment {
                 startActivity(intent);
                 return true;
             case R.id.menu_item_del_crime:
-                Crime crime = mCrimes.get(position);
+                Crime crime = mAdapter.;
                 return true;
             case R.id.menu_item_show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
