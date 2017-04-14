@@ -1,4 +1,4 @@
-package tk.alltrue.criminalintent;
+package tk.alltrue.criminalintent.database;
 
 /**
  * Created by ya on 11.04.17.

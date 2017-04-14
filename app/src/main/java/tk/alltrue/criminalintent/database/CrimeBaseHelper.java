@@ -1,4 +1,4 @@
-package tk.alltrue.criminalintent;
+package tk.alltrue.criminalintent.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
