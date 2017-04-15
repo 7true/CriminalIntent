@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import tk.alltrue.criminalintent.database.CrimeBaseHelper;
+import tk.alltrue.criminalintent.database.CrimeCursorWrapper;
 import tk.alltrue.criminalintent.database.CrimeDbSchema;
 import tk.alltrue.criminalintent.database.CrimeDbSchema.CrimeTable;
 
@@ -18,7 +19,7 @@ import tk.alltrue.criminalintent.database.CrimeDbSchema.CrimeTable;
 
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
-    private List<Crime> mCrimes;
+    //private List<Crime> mCrimes;
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
@@ -43,10 +44,11 @@ public class CrimeLab {
 
     public void deleteCrime(UUID crimeId) {
         Crime crime = getCrime(crimeId);
-        mCrimes.remove(crime);
+        //mCrimes.remove(crime);
     }
     public List<Crime> getCrimes() {
-        return mCrimes;
+        //return mCrimes;
+        return null;
     }
 
     public Crime getCrime(UUID id) {
@@ -69,12 +71,14 @@ public class CrimeLab {
 
      private static ContentValues getContentValues(Crime crime) {
          ContentValues values = new ContentValues();
+         values.put(CrimeTable.Cols.UUID, crime.getId().toString());
+         values.put(CrimeTable.Cols.TITLE, crime.getTitle());
          values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
          values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
-        return values;
+         return values;
      }
 
-     private Cursor queryCrimes(String whereClause, String[] whereArgs) {
+     private CrimeCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
          Cursor cursor = mDatabase.query(
                  CrimeTable.NAME,
                  null,
