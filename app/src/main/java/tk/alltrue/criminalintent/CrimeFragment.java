@@ -162,6 +162,13 @@ public class CrimeFragment extends Fragment {
             updateTime();
         }
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CrimeLab.get(getActivity())
+                .updateCrime(mCrime);
+    }
 
     private void updateDate() {
         mDateButton.setText(new SimpleDateFormat("EEEE, MMM dd, yyyy")

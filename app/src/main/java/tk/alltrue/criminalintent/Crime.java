@@ -43,11 +43,14 @@ public class Crime {
         mDate = date;
     }
 
+    public Crime() {
+        this(UUID.randomUUID());
+    }
+
     public Crime(UUID id) {
         mId = id;
         mDate = new Date();
     }
-
     public UUID getId() {
         return mId;
     }
