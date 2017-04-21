@@ -45,17 +45,16 @@ public class CrimeLab {
     }
 
     public List<Crime> getCrimes() {
-        //return mCrimes;
         List<Crime> crimes = new ArrayList<>();
         CrimeCursorWrapper cursor = queryCrimes(null, null);
         try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
+            //cursor.moveToFirst();
+            /*while (!cursor.isAfterLast()) {
                 crimes.add(cursor.getCrime());
                 cursor.moveToNext();
-            }
+            }*/
         } finally {
-            cursor.close();
+            //cursor.close();
         }
         return crimes;
     }
@@ -89,12 +88,12 @@ public class CrimeLab {
     private CrimeCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 CrimeTable.NAME,
-                null,
+                null, // Columns - null selects all columns
                 whereClause,
                 whereArgs,
-                null,
-                null,
-                null
+                null, // groupBy
+                null, // having
+                null  // orderBy
         );
         return new CrimeCursorWrapper(cursor);
     }

@@ -35,7 +35,7 @@ public class CrimeListFragment extends Fragment {
     private boolean mSubtitleVisible;
     private RelativeLayout mEmptyViewLinearLayout;
     private Button mNewCrimeButton;
-
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mEmptyViewLinearLayout = (RelativeLayout) view.findViewById(R.id.no_crime_view);
         mNewCrimeButton = (Button) view.findViewById(R.id.new_crime_button);
-
+/*
         mNewCrimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +60,7 @@ public class CrimeListFragment extends Fragment {
                         .newIntent(getActivity(), crime.getId());
                 startActivity(intent);
             }
-        });
+        });*/
         updateUI();
         return view;
     }
@@ -83,6 +83,12 @@ public class CrimeListFragment extends Fragment {
             }
         }
     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -215,7 +221,7 @@ public class CrimeListFragment extends Fragment {
         }
 
         @Override
-        public int getItemCount() {
+                                                                           public int getItemCount() {
             return mCrimes.size();
         }
 

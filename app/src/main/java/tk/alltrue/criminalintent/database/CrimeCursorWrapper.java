@@ -12,9 +12,10 @@ import tk.alltrue.criminalintent.Crime;
  * Created by ya on 15.04.17.
  */
 
-public class CrimeCursorWrapper extends CursorWrapper{
+public class CrimeCursorWrapper extends CursorWrapper {
+
     public CrimeCursorWrapper(Cursor cursor) {
-       super(cursor);
+        super(cursor);
     }
 
     public Crime getCrime() {
@@ -22,10 +23,12 @@ public class CrimeCursorWrapper extends CursorWrapper{
         String title = getString(getColumnIndex(CrimeTable.Cols.TITLE));
         long date = getLong(getColumnIndex(CrimeTable.Cols.DATE));
         int isSolved = getInt(getColumnIndex(CrimeTable.Cols.SOLVED));
+
         Crime crime = new Crime(UUID.fromString(uuidString));
         crime.setTitle(title);
         crime.setDate(new Date(date));
         crime.setSolved(isSolved != 0);
+
         return crime;
     }
 }
