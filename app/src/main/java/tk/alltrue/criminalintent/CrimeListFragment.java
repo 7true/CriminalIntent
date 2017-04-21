@@ -36,11 +36,13 @@ public class CrimeListFragment extends Fragment {
     private RelativeLayout mEmptyViewLinearLayout;
     private Button mNewCrimeButton;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -50,7 +52,7 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mEmptyViewLinearLayout = (RelativeLayout) view.findViewById(R.id.no_crime_view);
         mNewCrimeButton = (Button) view.findViewById(R.id.new_crime_button);
-/*
+
         mNewCrimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +62,7 @@ public class CrimeListFragment extends Fragment {
                         .newIntent(getActivity(), crime.getId());
                 startActivity(intent);
             }
-        });*/
+        });
         updateUI();
         return view;
     }
@@ -101,6 +103,7 @@ public class CrimeListFragment extends Fragment {
             subtitleItem.setTitle(R.string.show_subtitle);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -123,7 +126,7 @@ public class CrimeListFragment extends Fragment {
 
     private void updateSubtitle() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
-        int crimeSize= crimeLab.getCrimes().size();
+        int crimeSize = crimeLab.getCrimes().size();
         //String subtitle = getString(R.string.subtitle_format, crimeCount);
         String subtitle = getResources()
                 .getQuantityString(R.plurals.subtitle_plural, crimeSize, crimeSize);
@@ -221,7 +224,7 @@ public class CrimeListFragment extends Fragment {
         }
 
         @Override
-                                                                           public int getItemCount() {
+        public int getItemCount() {
             return mCrimes.size();
         }
 

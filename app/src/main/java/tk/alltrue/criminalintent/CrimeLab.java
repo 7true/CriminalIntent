@@ -48,13 +48,13 @@ public class CrimeLab {
         List<Crime> crimes = new ArrayList<>();
         CrimeCursorWrapper cursor = queryCrimes(null, null);
         try {
-            //cursor.moveToFirst();
-            /*while (!cursor.isAfterLast()) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
                 crimes.add(cursor.getCrime());
                 cursor.moveToNext();
-            }*/
+            }
         } finally {
-            //cursor.close();
+            cursor.close();
         }
         return crimes;
     }
