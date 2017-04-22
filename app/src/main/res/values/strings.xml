@@ -12,6 +12,8 @@
     <string name="hide_subtitle">Hide subtitle</string>
     <string name="subtitle_format">%1$d crimes</string>
     <string name="no_crime_yet">The list is empty</string>
+    <sting name="crime_suspect_text">Choose Suspect</sting>
+    <string name="crime_report_text">Send Crime Report</string>
     <plurals name="subtitle_plural">
         <item quantity="one">%1$d crime</item>
         <item quantity="other">%1$d crimes</item>
