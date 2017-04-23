@@ -18,6 +18,7 @@ public class Crime {
     private boolean mSolved;
     private String strCurrentDate;
 
+    private String mSuspect;
 
     public void setStrCurrentDate(String strCurrentDate) {
         this.strCurrentDate = strCurrentDate;
@@ -61,5 +62,13 @@ public class Crime {
 
     public void setTitle(String Title) {
         mTitle = Title;
+    }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String suspect) {
+        mSuspect = suspect;
     }
 }
