@@ -136,6 +136,7 @@ public class CrimeFragment extends Fragment {
                 startActivity(i);
             }
         });
+
         return v;
     }
 
