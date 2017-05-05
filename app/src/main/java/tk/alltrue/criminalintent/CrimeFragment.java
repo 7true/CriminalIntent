@@ -194,14 +194,11 @@ public class CrimeFragment extends Fragment {
             updateTime();
         } else if (requestCode == REQUEST_CONTACT && data != null) {
             Uri contactUri = data.getData();
-
             String[] queryFields = new String[]{
                     ContactsContract.Contacts.DISPLAY_NAME
             };
-
             Cursor c = getActivity().getContentResolver()
                     .query(contactUri, queryFields, null, null, null);
-
             try {
                 if (c.getCount() == 0) {
                     return;
