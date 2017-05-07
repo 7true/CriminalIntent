@@ -37,7 +37,7 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_TIME = "DialogTime";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
-    private static final int REQUEST_CONTACT = 1;
+    private static final int REQUEST_CONTACT = 2;
     private Crime mCrime;
     private Button mReportButton;
     //private String strCurrentDate;
