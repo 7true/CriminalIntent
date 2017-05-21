@@ -171,11 +171,13 @@ public class CrimeFragment extends Fragment {
             mSuspectButton.setEnabled(false);
         }
 
-        mSuspectCallButton = (Button)v.findViewById(R.id.crime_call);
+        mSuspectCallButton = (Button) v.findViewById(R.id.crime_call);
         mSuspectCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                final Intent callPhoneIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mCrime.getPhoneNumber()));
-                startActivity(callPhoneIntent);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel: " + mCrime.getPhoneNumber()));
+                startActivity(intent);
             }
         });
 
@@ -220,7 +222,7 @@ public class CrimeFragment extends Fragment {
         } else if (requestCode == REQUEST_CONTACT && data != null) {
             Uri contactUri = data.getData();
             String[] queryFields = new String[]{
-                    ContactsContract.Contacts.DISPLAY_NAME
+                    ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts._ID
             };
             Cursor c = getActivity().getContentResolver()
                     .query(contactUri, queryFields, null, null, null);
@@ -232,6 +234,36 @@ public class CrimeFragment extends Fragment {
                 String suspect = c.getString(0);
                 mCrime.setSuspect(suspect);
                 mSuspectButton.setText(suspect);
+
+                // Pull out the second column - that is the suspect's contact ID.
+                String contactId = c.getString(1);
+                String[] phoneQueryFields = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+                String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?";
+                Cursor phoneCursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        phoneQueryFields,
+                        selection,
+                        new String[]{contactId},
+                        null);
+
+                /*while (phoneCursor.moveToNext()) {
+                    String number = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    mCrime.setPhoneNumber(number);
+                }
+                mSuspectCallButton.setEnabled(true);
+                */
+                try {
+                    if (phoneCursor.getCount() == 0) {
+                        return;
+                    }
+
+                    phoneCursor.moveToFirst();
+                    String phone = phoneCursor.getString(0);
+                    mCrime.setPhoneNumber(phone);
+                    mSuspectCallButton.setText(phone);
+                    mSuspectCallButton.setEnabled(true);
+                } finally {
+                    phoneCursor.close();
+                }
             } finally {
                 c.close();
             }

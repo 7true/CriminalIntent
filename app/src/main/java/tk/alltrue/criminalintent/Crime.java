@@ -77,6 +77,6 @@ public class Crime {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.mPhoneNumber = phoneNumber;
+        mPhoneNumber = phoneNumber;
     }
 }
