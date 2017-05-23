@@ -236,8 +236,7 @@ public class CrimeFragment extends Fragment {
                 mCrime.setSuspect(suspect);
                 mSuspectButton.setText(suspect);
         //added second challenge 15 chapter (call suspect)
-                ContentResolver cr = getActivity().getContentResolver();
-                Cursor cursorPhone = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
+                Cursor cursorPhone = getActivity().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null,
                         "DISPLAY_NAME = '" + suspect + "'", null, null);
                 if (cursorPhone.moveToFirst()) {
                     String contactId =
