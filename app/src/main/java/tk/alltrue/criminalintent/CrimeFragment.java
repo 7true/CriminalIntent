@@ -1,6 +1,7 @@
 package tk.alltrue.criminalintent;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -234,36 +235,24 @@ public class CrimeFragment extends Fragment {
                 String suspect = c.getString(0);
                 mCrime.setSuspect(suspect);
                 mSuspectButton.setText(suspect);
-
-                // Pull out the second column - that is the suspect's contact ID.
-                String contactId = c.getString(1);
-                String[] phoneQueryFields = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
-                String selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?";
-                Cursor phoneCursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        phoneQueryFields,
-                        selection,
-                        new String[]{contactId},
-                        null);
-
-                /*while (phoneCursor.moveToNext()) {
-                    String number = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    mCrime.setPhoneNumber(number);
-                }
-                mSuspectCallButton.setEnabled(true);
-                */
-                try {
-                    if (phoneCursor.getCount() == 0) {
-                        return;
+        //added second challenge 15 chapter (call suspect)
+                ContentResolver cr = getActivity().getContentResolver();
+                Cursor cursorPhone = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
+                        "DISPLAY_NAME = '" + suspect + "'", null, null);
+                if (cursorPhone.moveToFirst()) {
+                    String contactId =
+                            cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.Contacts._ID));
+                    Cursor phones = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                    while (phones.moveToNext()) {
+                        String number = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        mCrime.setPhoneNumber(number);
+                        mSuspectCallButton.setText(number);
+                        mSuspectCallButton.setEnabled(true);
                     }
-
-                    phoneCursor.moveToFirst();
-                    String phone = phoneCursor.getString(0);
-                    mCrime.setPhoneNumber(phone);
-                    mSuspectCallButton.setText(phone);
-                    mSuspectCallButton.setEnabled(true);
-                } finally {
-                    phoneCursor.close();
+                    phones.close();
                 }
+                cursorPhone.close();
             } finally {
                 c.close();
             }
