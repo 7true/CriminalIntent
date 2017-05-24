@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +50,8 @@ public class CrimeFragment extends Fragment {
     private Button mTimeButton;
     private Button mSuspectButton;
     private Button mSuspectCallButton;
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
     private CheckBox mSolvedCheckBox;
     private EditText mTitleField;
 
@@ -181,6 +185,9 @@ public class CrimeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        mPhotoButton = (ImageButton) v.findViewById(R.id.crime_camera);
+        mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
 
         return v;
     }
