@@ -192,6 +192,23 @@ public class CrimeFragment extends Fragment {
         });
 
         mPhotoButton = (ImageButton) v.findViewById(R.id.crime_camera);
+        mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
+        final Intent captureImage = new Intent
+                (MediaStore.ACTION_IMAGE_CAPTURE);
+        boolean canTakePhoto = mPhotoFile != null &&
+                captureImage.resolveActivity(packageManager) != null;
+        mPhotoButton.setEnabled(canTakePhoto);
+        if (canTakePhoto) {
+            Uri uri = Uri.fromFile(mPhotoFile);
+            captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
+        mPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(captureImage, REQUEST_PHOTO);
+            }
+        });
+        /*
         final Intent captureImage = new Intent
                 (MediaStore.ACTION_IMAGE_CAPTURE);
         boolean canTakePhoto = mPhotoFile != null &&
@@ -206,9 +223,9 @@ public class CrimeFragment extends Fragment {
            public void onClick(View v) {
                 startActivityForResult(captureImage, REQUEST_PHOTO);
             }
-        });
+        });*/
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
-
+        updatePhotoView();
         return v;
     }
 
@@ -283,6 +300,9 @@ public class CrimeFragment extends Fragment {
             } finally {
                 c.close();
             }
+        }
+        else if (requestCode == REQUEST_PHOTO) {
+            updatePhotoView();
         }
     }
 
