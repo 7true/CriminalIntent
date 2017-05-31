@@ -208,22 +208,6 @@ public class CrimeFragment extends Fragment {
                 startActivityForResult(captureImage, REQUEST_PHOTO);
             }
         });
-        /*
-        final Intent captureImage = new Intent
-                (MediaStore.ACTION_IMAGE_CAPTURE);
-        boolean canTakePhoto = mPhotoFile != null &&
-                captureImage.resolveActivity(packageManager) != null;
-        mPhotoButton.setEnabled(canTakePhoto);
-        if (canTakePhoto) {
-            Uri uri = Uri.fromFile(mPhotoFile);
-            captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        }
-        mPhotoButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-                startActivityForResult(captureImage, REQUEST_PHOTO);
-            }
-        });*/
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
         updatePhotoView();
         return v;
@@ -350,7 +334,7 @@ public class CrimeFragment extends Fragment {
 
     private void updatePhotoView() {
         if (mPhotoFile == null || !mPhotoFile.exists()) {
-            mPhotoButton.setImageDrawable(null);
+            mPhotoView.setImageDrawable(null);
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(
                     mPhotoFile.getPath(), getActivity());
