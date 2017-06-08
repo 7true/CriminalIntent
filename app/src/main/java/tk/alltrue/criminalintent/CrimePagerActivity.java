@@ -15,7 +15,8 @@ import java.util.UUID;
 
 import tk.alltrue.criminalintent.Crime;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity
+    implements CrimeFragment.Callbacks {
 
     private static final String EXTRA_CRIME_ID =
             "tk.alltrue.criminalintent.crime_id";
@@ -29,6 +30,10 @@ public class CrimePagerActivity extends AppCompatActivity {
         return intent;
     }
 
+    @Override
+    public void onCrimeUpdated(Crime crime) {
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
